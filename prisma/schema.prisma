@@ -18,6 +18,12 @@ enum AccountStatus {
   LOCKED
 }
 
+enum ReservationStatus {
+  ACTIVE
+  COMMITTED
+  EXPIRED
+}
+
 model User {
   id                  String   @id @default(cuid())
   email               String   @unique
@@ -104,9 +110,43 @@ model Product {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
+  reservations    StockReservation[]
+  inventoryLedger InventoryLedger[]
+
   @@index([name])
   @@index([categoryId])
   @@index([deletedAt])
   @@index([published, deletedAt])
   @@map("products")
+}
+
+model StockReservation {
+  id          String            @id @default(cuid())
+  productId   String
+  product     Product           @relation(fields: [productId], references: [id], onDelete: Cascade)
+  userId      String?           // Nullable if supporting guest checkout
+  quantity    Int
+  status      ReservationStatus @default(ACTIVE)
+  expiresAt   DateTime
+  
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  @@index([productId, status])
+  @@index([expiresAt, status])
+  @@map("stock_reservations")
+}
+
+model InventoryLedger {
+  id             String   @id @default(cuid())
+  productId      String
+  product        Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantityChange Int      // Positive for restocks, negative for damages/orders
+  reason         String   // e.g., "RESTOCK", "DAMAGED", "ORDER_COMPLETED"
+  adminId        String?  // Nullable if the system triggered it (e.g., an order)
+  
+  createdAt      DateTime @default(now())
+
+  @@index([productId])
+  @@map("inventory_ledger")
 }

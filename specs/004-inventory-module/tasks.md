@@ -23,9 +23,9 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T002 Update `prisma/schema.prisma` with `StockReservation` and `InventoryLedger` models, including `ReservationStatus` enum and relations to the existing `Product` model.
-- [ ] T003 Generate Prisma client and apply database migration (`npx prisma migrate dev --name add_inventory_module`)
-- [ ] T004 [P] Generate `InventoryModule` in `src/inventory/inventory.module.ts` and register it in `src/app.module.ts`
+- [X] T002 Update `prisma/schema.prisma` with `StockReservation` and `InventoryLedger` models, including `ReservationStatus` enum and relations to the existing `Product` model.
+- [X] T003 Generate Prisma client and apply database migration (`npx prisma migrate dev --name add_inventory_module`)
+- [X] T004 [P] Generate `InventoryModule` in `src/inventory/inventory.module.ts` and register it in `src/app.module.ts`
 
 **Checkpoint**: Database schema is updated and base module is wired into the application.
 
@@ -39,12 +39,12 @@
 
 ### Tests for User Story 1 ⚠️
 
-- [ ] T005 [P] [US1] Create E2E tests for inventory availability in `test/inventory.e2e-spec.ts`
+- [X] T005 [P] [US1] Create E2E tests for inventory availability in `test/inventory.e2e-spec.ts`
 
 ### Implementation for User Story 1
 
-- [ ] T006 [US1] Implement `InventoryService.getAvailability` in `src/inventory/inventory.service.ts` to calculate `availableStock` dynamically
-- [ ] T007 [US1] Implement `GET /api/inventory/availability/:productId` in `src/inventory/inventory.controller.ts` with Swagger decorators
+- [X] T006 [US1] Implement `InventoryService.getAvailability` in `src/inventory/inventory.service.ts` to calculate `availableStock` dynamically
+- [X] T007 [US1] Implement `GET /api/inventory/availability/:productId` in `src/inventory/inventory.controller.ts` with Swagger decorators
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently.
 
@@ -58,15 +58,15 @@
 
 ### Tests for User Story 2 ⚠️
 
-- [ ] T008 [P] [US2] Update E2E tests for reservations, commits, and expiration in `test/inventory.e2e-spec.ts`
+- [X] T008 [P] [US2] Update E2E tests for reservations, commits, and expiration in `test/inventory.e2e-spec.ts`
 
 ### Implementation for User Story 2
 
-- [ ] T009 [P] [US2] Create DTO `CreateReservationDto` in `src/inventory/dto/create-reservation.dto.ts` with `class-validator` and `@ApiProperty`
-- [ ] T010 [US2] Implement `InventoryService.reserveStock` in `src/inventory/inventory.service.ts` using `prisma.$transaction` and PostgreSQL pessimistic locking (`FOR UPDATE`) to prevent race conditions
-- [ ] T011 [US2] Implement `InventoryService.commitReservation` in `src/inventory/inventory.service.ts` using locking, which sets status to COMMITTED, deducts `Product.stock`, and creates an `InventoryLedger` entry
-- [ ] T012 [US2] Implement reservation endpoints (`POST /api/inventory/reservations` and `POST /api/inventory/reservations/:id/commit`) in `src/inventory/inventory.controller.ts` with `@ApiBearerAuth` and Swagger decorators
-- [ ] T013 [US2] Install `@nestjs/schedule` and implement `ReservationCleanupCron` in `src/inventory/cron/reservation-cleanup.cron.ts` to automatically expire ACTIVE reservations where `expiresAt < now()`
+- [X] T009 [P] [US2] Create DTO `CreateReservationDto` in `src/inventory/dto/create-reservation.dto.ts` with `class-validator` and `@ApiProperty`
+- [X] T010 [US2] Implement `InventoryService.reserveStock` in `src/inventory/inventory.service.ts` using `prisma.$transaction` and PostgreSQL pessimistic locking (`FOR UPDATE`) to prevent race conditions
+- [X] T011 [US2] Implement `InventoryService.commitReservation` in `src/inventory/inventory.service.ts` using locking, which sets status to COMMITTED, deducts `Product.stock`, and creates an `InventoryLedger` entry
+- [X] T012 [US2] Implement reservation endpoints (`POST /api/inventory/reservations` and `POST /api/inventory/reservations/:id/commit`) in `src/inventory/inventory.controller.ts` with `@ApiBearerAuth` and Swagger decorators
+- [X] T013 [US2] Install `@nestjs/schedule` and implement `ReservationCleanupCron` in `src/inventory/cron/reservation-cleanup.cron.ts` to automatically expire ACTIVE reservations where `expiresAt < now()`
 
 **Checkpoint**: Stock reservations, high-concurrency safety, and expiration logic are functional.
 
@@ -80,13 +80,13 @@
 
 ### Tests for User Story 3 ⚠️
 
-- [ ] T014 [P] [US3] Update E2E tests for admin stock adjustments in `test/inventory.e2e-spec.ts`
+- [X] T014 [P] [US3] Update E2E tests for admin stock adjustments in `test/inventory.e2e-spec.ts`
 
 ### Implementation for User Story 3
 
-- [ ] T015 [P] [US3] Create DTO `CreateAdjustmentDto` in `src/inventory/dto/create-adjustment.dto.ts` with validation and `@ApiProperty`
-- [ ] T016 [US3] Implement `InventoryService.adjustStock` in `src/inventory/inventory.service.ts` to update `Product.stock` and create an `InventoryLedger` entry in a single transaction
-- [ ] T017 [US3] Implement `POST /api/inventory/adjustments` in `src/inventory/inventory.controller.ts` with `@Roles(Role.ADMIN)` guard, `@ApiBearerAuth`, and Swagger decorators
+- [X] T015 [P] [US3] Create DTO `CreateAdjustmentDto` in `src/inventory/dto/create-adjustment.dto.ts` with validation and `@ApiProperty`
+- [X] T016 [US3] Implement `InventoryService.adjustStock` in `src/inventory/inventory.service.ts` to update `Product.stock` and create an `InventoryLedger` entry in a single transaction
+- [X] T017 [US3] Implement `POST /api/inventory/adjustments` in `src/inventory/inventory.controller.ts` with `@Roles(Role.ADMIN)` guard, `@ApiBearerAuth`, and Swagger decorators
 
 **Checkpoint**: Administrator stock adjustments and inventory ledger are functional.
 
@@ -96,8 +96,8 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T018 [P] Verify Swagger documentation accurately reflects endpoints at `http://localhost:3000/api/docs`
-- [ ] T019 Run E2E tests via `npm run test:e2e` to confirm no regressions and execute quickstart validation
+- [X] T018 [P] Verify Swagger documentation accurately reflects endpoints at `http://localhost:3000/api/docs`
+- [X] T019 Run E2E tests via `npm run test:e2e` to confirm no regressions and execute quickstart validation
 
 ---
 
