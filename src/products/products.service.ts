@@ -113,10 +113,10 @@ export class ProductsService {
     `;
 
     // Note: To pass dynamic params to $queryRawUnsafe
-    const [data, countResult]: [any[], any[]] = await Promise.all([
+    const [data, countResult] = (await Promise.all([
       this.prisma.$queryRawUnsafe(dataQuery, ...params),
       this.prisma.$queryRawUnsafe(countQuery, ...params.slice(0, params.length - 2))
-    ]);
+    ])) as [any[], any[]];
 
     return {
       data,
