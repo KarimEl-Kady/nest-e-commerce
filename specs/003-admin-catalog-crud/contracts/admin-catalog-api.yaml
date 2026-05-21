@@ -1,0 +1,144 @@
+openapi: 3.0.0
+info:
+  title: Admin Catalog CRUD API
+  version: 1.0.0
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []
+paths:
+  /api/categories:
+    post:
+      summary: Create a Category
+      tags: [Admin Categories]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '201':
+          description: Category Created
+    get:
+      summary: List Categories
+      tags: [Admin Categories]
+      responses:
+        '200':
+          description: Success
+  /api/categories/{id}:
+    patch:
+      summary: Update a Category
+      tags: [Admin Categories]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '200':
+          description: Category Updated
+    delete:
+      summary: Delete a Category
+      tags: [Admin Categories]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Category Deleted
+        '409':
+          description: Conflict (Category has products)
+
+  /api/products:
+    post:
+      summary: Create a Product
+      tags: [Admin Products]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, price, categoryId]
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                price:
+                  type: number
+                categoryId:
+                  type: string
+                published_status:
+                  type: boolean
+      responses:
+        '201':
+          description: Product Created
+    get:
+      summary: List Products
+      tags: [Admin Products]
+      responses:
+        '200':
+          description: Success
+  /api/products/{id}:
+    patch:
+      summary: Update a Product
+      tags: [Admin Products]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                price:
+                  type: number
+      responses:
+        '200':
+          description: Product Updated
+    delete:
+      summary: Soft Delete a Product
+      tags: [Admin Products]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product Soft Deleted

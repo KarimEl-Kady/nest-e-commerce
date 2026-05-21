@@ -22,6 +22,7 @@ export class ProductsService {
     return this.prisma.product.create({
       data: {
         ...createProductDto,
+        images: createProductDto.images || [],
         createdById: userId,
       },
       include: { category: true },

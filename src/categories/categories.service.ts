@@ -64,10 +64,19 @@ export class CategoriesService {
   async remove(id: string) {
     const category = await this.prisma.category.findUnique({
       where: { id },
+      include: {
+        _count: {
+          select: { products: true }
+        }
+      }
     });
 
     if (!category) {
       throw new NotFoundException('Category not found');
+    }
+
+    if (category._count.products > 0) {
+      throw new ConflictException('Cannot delete category with existing products. Please reassign or delete the products first.');
     }
 
     await this.prisma.category.delete({
