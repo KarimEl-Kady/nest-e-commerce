@@ -32,7 +32,7 @@
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
 - [ ] Does the design align with a modular monolith architecture (no tight coupling)?
-- [ ] Are the DTOs strictly typed and using class-validator for API-First Design?
+- [ ] Are the DTOs strictly typed, and is the API fully documented with Swagger/OpenAPI (including auth metadata) for API-First Design?
 - [ ] Is data persistence managed through Prisma ORM with strict input validation?
 - [ ] Are core e-commerce transactions fully covered by tests?
 - [ ] Are there proper global exception filters and async operations for scalability?

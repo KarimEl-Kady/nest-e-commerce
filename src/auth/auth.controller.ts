@@ -7,7 +7,9 @@ import { ResetPasswordDto } from './dto/reset-password.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { Public } from '../common/decorators/public.decorator';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -48,6 +50,7 @@ export class AuthController {
   }
 
   @Post('logout')
+  @ApiBearerAuth()
   @HttpCode(HttpStatus.OK)
   logout(@Body() dto: RefreshTokenDto) {
     return this.authService.logout(dto.refreshToken);

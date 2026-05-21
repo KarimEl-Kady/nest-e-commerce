@@ -8,7 +8,10 @@ import { Roles } from '../common/decorators/roles.decorator';
 import { Role } from '../common/enums/role.enum';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Products')
+@ApiBearerAuth()
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}

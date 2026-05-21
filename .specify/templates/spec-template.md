@@ -99,7 +99,7 @@
 
 - **NFR-001**: System MUST be implemented as a Modular Monolith using NestJS.
 - **NFR-002**: All data persistence MUST utilize Prisma ORM.
-- **NFR-003**: API interfaces MUST be strictly typed and validated using `class-validator`.
+- **NFR-003**: API interfaces MUST be strictly typed and validated using `class-validator`, and fully documented via Swagger/OpenAPI.
 - **NFR-004**: System MUST employ asynchronous, non-blocking code and use global exception filters.
 
 ### Key Entities *(include if feature involves data)*
