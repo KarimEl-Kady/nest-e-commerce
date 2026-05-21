@@ -24,6 +24,7 @@ export class UsersService {
         email: dto.email,
         hashedPassword,
         name: dto.name,
+        role: dto.role || Role.CUSTOMER,
       },
     });
   }
